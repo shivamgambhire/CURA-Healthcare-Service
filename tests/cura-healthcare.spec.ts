@@ -1,20 +1,15 @@
 import {test, expect} from '@playwright/test';
+import { loginAppointment } from '../page-objects/loginAppointment';
 
 test("Login with make appointment ", async({page}) => {
 
-    await page.goto("https://katalon-demo-cura.herokuapp.com/",{ waitUntil: 'domcontentloaded' })
+    let login = new loginAppointment(page);
+    
+    await login.loginPage();
+
     //await page.waitForLoadState('networkidle')
 
-    await page.click("#btn-make-appointment")       //by id locator 
-
-    await expect(page.locator("h2")).toHaveText("Login")   //by tag name locator
-
-    await page.fill("#txt-username","John Doe")
-    await page.fill("#txt-password","ThisIsNotAPassword")
-
-    await page.click("#btn-login")
-
-    await expect(page.locator("h2")).toHaveText("Make Appointment")  //assertion validation 
+    await expect(page.locator("h2")).toHaveText("Make Appointment")  //assertion validation
 
     //*************************/
 
