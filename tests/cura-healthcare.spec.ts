@@ -4,31 +4,14 @@ import { loginAppointment } from '../page-objects/loginAppointment';
 test("Login with make appointment ", async({page}) => {
 
     let login = new loginAppointment(page);
-    
+
     await login.loginPage();
 
     //await page.waitForLoadState('networkidle')
 
     await expect(page.locator("h2")).toHaveText("Make Appointment")  //assertion validation
 
-    //*************************/
-
-    await page.selectOption("#combo_facility", "Seoul CURA Healthcare Center")  //dropdown selection
-
-    await page.check("#chk_hospotal_readmission")   //check box
-
-    await page.check("#radio_program_medicaid")     //radio button
-
-    //await page.click('#txt_visit_date');
-
-    await page.fill('#txt_visit_date', '30/09/2025');
-    await page.keyboard.press('Enter');                     //here i use enter keyboard event
-
-    await page.locator("#txt_comment").focus();                 // focus the text area because the date picker is blocking the text area
-
-    await page.fill("#txt_comment", "this is appointment for checkup");  // fill the text area
-
-    await page.click("#btn-book-appointment")   //button click
+    await login.appointmentPage();
 
     await expect(page.locator("h2")).toHaveText("Appointment Confirmation")  //assertion validation
 
